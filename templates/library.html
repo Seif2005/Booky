@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Library
+{% endblock %}
+
+{% block main %}
+<h1 class="shoptitle">Library</h1>
+<h3>Your wallet: {{cash | usd }}</h3>
+<table class="table table-hover">
+    <!--library tables-->
+    <thead style="text-align:center;">
+      <tr>
+        <th>Book Cover</th>
+        <th>Book Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>Status</th>
+        <th>Purchase Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody style="text-align:center;">
+    {%for book in books%}
+      <tr>
+        <td ><img src="/static/{{book.bookcover}}" id="cartbookpic"></td>
+        <td>{{book.booktitle}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.genre}}</td>
+        <td>{{book.status}}</td>
+        <td>{{book.date}}</td>
+        <td><form action="/cancel" method="post">
+            <input name="cancel" type="hidden" value="{{ book.booktitle }}">
+            <input type="submit" value="Cancel" class="btn btn-danger"></form></td>
+        </tr>
+     {%endfor%}
+    </tbody>
+  </table>
+{% endblock %}

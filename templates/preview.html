@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Preview
+{% endblock %}
+
+{% block main %}
+<h1 class="shoptitle">Book Preview</h1>
+<div>
+    <img src="/static/{{book.source}}" id="bookmain">
+</div>
+<br>
+<div>
+    <h4>Title: {{book.title}}</h4>
+    <h4>Author: {{book.author}}</h4>
+    <h4>Genre: {{book.genre}}</h4>
+    <h4>Price: {{book.price | usd}}</h4>
+    <h5>{{book.summary}}</h5>
+    </div>
+    <div>
+        <form action="/cart" method="post">
+            <input name="cart" type="hidden" value="{{ book.id }}">
+            <input type="submit" value="Add to Cart" class="btn btn-danger">
+        </form>
+    </div>
+{% endblock %}

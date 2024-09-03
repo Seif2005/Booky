@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Cart
+{% endblock %}
+
+{% block main %}
+<h1 class="shoptitle">Cart</h1>
+<h3>Your wallet: {{cash | usd }}</h3>
+<table class="table table-hover">
+    <!--cart tables-->
+    <thead style="text-align:center;">
+      <tr>
+        <th>Book Cover</th>
+        <th>Book Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody style="text-align:center;">
+    {%for book in books%}
+      <tr>
+        <td ><img src="/static/{{book.bookcover}}" id="cartbookpic"></td>
+        <td>{{book.bookname}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.genre}}</td>
+        <td>{{book.price | usd}}</td>
+        <td><form action="/remove" method="post">
+            <input name="remove" type="hidden" value="{{ book.bookid }}">
+            <input type="submit" value="Remove" class="btn btn-danger"></form></td>
+        </tr>
+     {%endfor%}
+    </tbody>
+  </table>
+  <h3>Total Price: {{Tprice | usd }}</h3>
+  <div>
+    <a href="/purchase"><button class="button button3">Purchase</button></a></div>
+{% endblock %}

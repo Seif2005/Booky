@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Shop
+{% endblock %}
+
+{% block main %}
+<h1 class="shoptitle">Shop</h1>
+<h3>Your wallet: {{cash | usd }}</h3>
+<form action="/search" method="post">
+    <h4>Search a novel:</h4>
+    <div class="mb-3">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="search" name="search" placeholder="Search here" type="text">
+    </div>
+    <button class="btn btn-danger" type="submit">Search</button>
+</form>
+<br>
+<h4>Select a genre:</h4>
+<div class="dropdown">
+    <button class="dropbtn">Genre</button>
+    <div class="dropdown-content">
+    <a href="/horror">Horror</a>
+    <a href="/romance">Romance</a>
+    <a href="/mystery">Mystery</a>
+    </div>
+  </div>
+<br><br><br><br><br>
+<table class="center" style="width:100%;">
+  {%for i in range (0,length)%}
+  {%if i==0 or i==3 or i==6 or i==9 or i==12 or i==15%}
+  <tr>
+  {%endif%}
+    <td style="width:33%">
+<div class="container mt-3">
+    <div class="card" style="width:400px">
+      <img class="card-img-top" src="/static/{{books[i].source}}" alt="book image" id="bookimg">
+      <div class="card-body">
+        <h4 class="card-title">{{books[i].title}}</h4>
+        <p class="card-text">Author: {{books[i].author}} <br>Genre: {{books[i].genre}} <br>Price: {{books[i].price | usd}}</p>
+        <form action="/preview" method="post">
+          <input name="id" type="hidden" value="{{ books[i].id }}">
+          <input type="submit" value="Preview Book" class="btn btn-danger">
+      </form>
+      <br>
+      <div>
+        <form action="/cart" method="post">
+            <input name="cart" type="hidden" value="{{ books[i].id }}">
+            <input type="submit" value="Add to Cart" class="btn btn-danger">
+        </form>
+    </div>
+      </div></td>
+      {%if i==2 or i==5 or i==8 or i==11 or i==14 or i==17%}
+    </tr>
+    {%endif%}
+      {%endfor%}
+
+  </table>
+{% endblock %}
